@@ -4,15 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Bulma CSS  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">  
+
   <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
   
-  <h1>Compression</h1>
-  
-  <div>
-    {% block content %}{% encblock content %}
-  </div>
-
+  <section class="section">
+    <div class="container">
+      <h1 class="title is-1 has-text-centered">Compression</h1> 
+      <p class="has-text-centered">Upload pdf or image files and compress them</p>
+      {% block content %}{% endblock content %}
+    </div>
+  </section>
 </body>
 </html>
