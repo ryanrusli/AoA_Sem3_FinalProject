@@ -1,7 +1,8 @@
 import os
 from flask import Flask, render_template, request, url_for, redirect
 from werkzeug.utils import secure_filename
-# from forms import UploadFileForm
+
+from huffman_coding import *
 
 app = Flask(__name__)
 
