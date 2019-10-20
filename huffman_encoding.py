@@ -2,7 +2,15 @@
 """
 Created on Sun Oct 13 12:51:40 2019
 
-@author: Ryan
+This is the code to implement the huffman compression algorithm
+
+Final project - Analysis of Algorithms 
+
+Contributors:
+    - Ryan Rusli
+    - Naufal F. Basyah
+    - Imanuel Febie
+    - Wely Dharmaputra
 """
 
 import heapq
@@ -132,5 +140,5 @@ class HuffmanCoding:
         print("Compressed")
         return output_path        
 
-x = HuffmanCoding('text/Robinhood.txt')
-x.compress()
+#x = HuffmanCoding('text/Robinhood.txt')
+#x.compress()
