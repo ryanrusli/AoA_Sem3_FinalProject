@@ -120,7 +120,7 @@ class HuffmanCoding:
 
     def compress(self):
         filename, file_extension = os.path.splitext(self.path)
-        output_path = filename + "1.txt"
+        output_path = filename + "_huffman_compressed.txt"
 
         with open(self.path, 'r+') as file, open(output_path, 'wb') as output:
             text = file.read()
@@ -139,6 +139,3 @@ class HuffmanCoding:
 
         print("Compressed")
         return output_path        
-
-#x = HuffmanCoding('text/Robinhood.txt')
-#x.compress()

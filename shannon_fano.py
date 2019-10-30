@@ -1,7 +1,7 @@
 import collections
 import operator
 
-class Shannon_fano_structure:
+class ShannonFano:
 
     code_book = {}
 
@@ -49,7 +49,7 @@ class Shannon_fano_structure:
         return list[0:index_of_min + 1], list[index_of_min + 1:]
 
 
-    def shannon_fano_structure(self, list):
+    def shannon_fano(self, list):
         l1, l2 = self.divide_list(list)
         for i in l1:
             i[2] += '0'
@@ -60,9 +60,9 @@ class Shannon_fano_structure:
             self.code_book[i[0]] = i[2]
 
         if len(l1) > 1:
-            self.shannon_fano_structure(l1)
+            self.shannon_fano(l1)
         if len(l2) > 1:
-            self.shannon_fano_structure(l2)
+            self.shannon_fano(l2)
 
         return self.code_book
     
@@ -103,17 +103,15 @@ class Shannon_fano_structure:
         
         return bytes(b)
 
-file = open("C:\\Users\\Ryan\\.spyder-py3\\Robinhood.txt")
-text = file.read()
+#file = open('robin_hood.txt')
+#text = file.read()
 
-comp = Shannon_fano_structure()
-compList = comp.create_list(text)
-compDict = comp.shannon_fano_structure(compList)
+#comp = ShannonFano()
+#compList = comp.create_list(text)
+#compDict = comp.shannon_fano(compList)
 
-com = comp.compression(text)
-file.close()
-output = open("C:\\Users\\Ryan\\.spyder-py3\\RobinhoodShannonCOMP.txt", "wb")
-output.write(com)
-output.close()
-
-#print(com)
+#com = comp.compression(text)
+#file.close()
+#output = open('sf_compressed.txt', 'wb')
+#output.write(com)
+#output.close()
