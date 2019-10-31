@@ -1,13 +1,9 @@
-'''
-CLI to run the compression algorithms
-
-author: @manu febie
-'''
+'''CLI to run the compression algorithms'''
 import argparse 
 
-from huffman_encoding import HuffmanCoding
+from huffman_coding import HuffmanCoding
 from lempel_ziv import lzw_compress, lzw_decompress
-from shannon_fano import ShannonFano
+from shannon_fano_structure import ShannonFano
 
 def main():
     '''Command Line Interface using argparse'''
@@ -19,8 +15,12 @@ def main():
                         help='Will perform compression')
 
     parser.add_argument('--decompress',
-                        '-d',
+                        '-dc',
                         help='Will perform decompression')
+    
+    parser.add_argument('--dictionary',
+                        '-d',
+                        help='Which dictionary to choose')
 
     parser.add_argument('file', 
                     type=str,
@@ -28,38 +28,68 @@ def main():
 
     args = parser.parse_args() # parse the arguments
 
+    # HuffmanCoding object 
+    # hc = HuffmanCoding(args.file)
+
     if args.compress == 'huffman':
         '''compress using huffman'''
-        x = HuffmanCoding(args.file)
-        x.compress()
+        huffman_compress(args.file)
 
     elif args.decompress == 'huffman':
-        pass
+        huffman_decompress(args.file, args.dictionary)  
 
     elif args.compress == 'lzw':
         '''compress using lempel-ziv-welch algorithm'''
-        f = open(args.file, 'r')  
-        src = f.read()
-        lzw_compress(src)
-        f.close()
-
+        lzw_compression(args.file)
+        
     elif args.decompress == 'lzw':
-        '''Decompressing using LZW'''
+        '''Decompressing using LZW. Expected input should be a compressed lzw file'''
         lzw_decompress(args.file)
 
     elif args.compress == 'shannon-fano':
         '''compress using shannon-fano'''
-        file = open(args.file)
-        read_file = file.read()
+        shannon_fano_compression(args.file) 
+    
+    elif args.decompress == 'shannon-fano':
+        shannon_fano_decompression(args.file, args.dictionary)
 
-        sf_compress = ShannonFano()
-        sf_compressList = sf_compress.create_list(read_file)
-        sf_compressDict = sf_compress.shannon_fano(sf_compressList)
-        compress = sf_compress.compression(read_file)
-        file.close()
-        
-        output = open('sf_compressed.txt', 'wb')
-        output.write(compress)
-        output.close()
-        
+
+
+def shannon_fano_decompression(filename, dict_name):
+    '''Decompressing using shannon fano'''
+    print('Decompressing...')
+
+    dc = ShannonFano(filename)
+    dc.decompression(dict_name)
+
+def shannon_fano_compression(filename):
+    '''Compressing using shannon-fano'''
+    print("Compressing using shannon-fano...")
+
+    c = ShannonFano(filename)
+    c.compression()
+
+def lzw_compression(filename):
+    '''Compress using lzw'''
+    print('Compressing using Lempel-Ziv-Welch...')
+
+    with open(filename, 'r') as f:
+        f_data = f.read()
+        lzw_compress(f_data)
+
+    print('{} has been compressed.'.format(f))
+
+def huffman_compress(filename):
+    '''Compress using huffman compress'''
+    print('Compressing using huffman')
+    
+    instance = HuffmanCoding()
+    instance.compress(filename)
+
+    # print('{} has been compressed.'.format(filename))
+
+def huffman_decompress(filename, dict_name):
+    instance = HuffmanCoding()
+    instance.decompress(filename, dict_name)
+       
 main()
